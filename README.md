@@ -1,1 +1,891 @@
 # Anbuselvam.p
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Smart HR Analytics Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f5f7f8;
+      --card: #ffffff;
+      --text: #17202a;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --primary: #1f6f5f;
+      --primary-dark: #155244;
+      --soft: #eaf4f1;
+      --danger: #c24141;
+      --warning: #b7791f;
+      --success: #287d50;
+      --shadow: 0 12px 35px rgba(0,0,0,0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    /* ================= LOGIN ================= */
+
+    #loginPage {
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      background: #fff;
+    }
+
+    .login-left {
+      width: 55%;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 50px;
+      background:
+        linear-gradient(
+          rgba(21, 82, 68, 0.55),
+          rgba(21, 82, 68, 0.55)
+        ),
+        url("a_clean_modern_ui_website_login_screen_scene_for.png");
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .hero-content {
+      max-width: 620px;
+      color: white;
+      text-align: left;
+    }
+
+    .hero-content h1 {
+      font-family: "Fraunces", serif;
+      font-size: 58px;
+      line-height: 1.08;
+      margin-bottom: 22px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      line-height: 1.7;
+      max-width: 560px;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .login-right {
+      width: 45%;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background: white;
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 430px;
+    }
+
+    .logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 16px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 25px;
+      font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .login-card h2 {
+      font-family: "Fraunces", serif;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .login-card .subtitle {
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 15px 16px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(31,111,95,0.1);
+    }
+
+    .login-btn {
+      width: 100%;
+      border: none;
+      background: var(--primary);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .login-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .login-error {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fff1f1;
+      color: var(--danger);
+      font-size: 14px;
+    }
+
+    .demo-info {
+      margin-top: 22px;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    /* ================= DASHBOARD ================= */
+
+    #dashboardPage {
+      display: none;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 72px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 35px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .brand {
+      font-family: "Fraunces", serif;
+      font-size: 25px;
+      font-weight: 700;
+    }
+
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .signout-btn {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 9px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .signout-btn:hover {
+      background: #f8fafc;
+    }
+
+    .dashboard-container {
+      max-width: 1400px;
+      margin: auto;
+      padding: 35px;
+    }
+
+    .welcome {
+      margin-bottom: 30px;
+    }
+
+    .welcome h1 {
+      font-family: "Fraunces", serif;
+      font-size: 38px;
+      margin-bottom: 8px;
+    }
+
+    .welcome p {
+      color: var(--muted);
+    }
+
+    /* ================= KPI CARDS ================= */
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .kpi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .kpi-title {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .kpi-value {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .kpi-description {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ================= DEPARTMENT TABLE ================= */
+
+    .section-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 22px 25px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header h2 {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+
+    .section-header p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 17px 25px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+
+    th {
+      background: #fafafa;
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .status {
+      display: inline-flex;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status.good {
+      background: #e9f7ef;
+      color: var(--success);
+    }
+
+    .status.watch {
+      background: #fff7df;
+      color: var(--warning);
+    }
+
+    .status.alert {
+      background: #fff0f0;
+      color: var(--danger);
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 1100px) {
+      .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .login-left {
+        width: 50%;
+      }
+
+      .login-right {
+        width: 50%;
+      }
+    }
+
+    @media (max-width: 800px) {
+      #loginPage {
+        flex-direction: column;
+      }
+
+      .login-left {
+        width: 100%;
+        min-height: 42vh;
+        padding: 35px;
+      }
+
+      .login-right {
+        width: 100%;
+        min-height: auto;
+        padding: 35px 25px;
+      }
+
+      .hero-content h1 {
+        font-size: 40px;
+      }
+
+      .hero-content p {
+        font-size: 15px;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .topbar {
+        padding: 0 20px;
+      }
+
+      .dashboard-container {
+        padding: 25px 20px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .welcome h1 {
+        font-size: 30px;
+      }
+
+      .topbar {
+        height: auto;
+        padding: 15px 20px;
+        gap: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .topbar-right {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      th,
+      td {
+        padding: 14px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= LOGIN PAGE ================= -->
+
+  <section id="loginPage">
+
+    <div class="login-left">
+      <div class="hero-content">
+        <h1>Smart HR Analytics Dashboard</h1>
+
+        <p>
+          Transform employee data into meaningful insights with
+          intelligent HR analytics, performance monitoring,
+          attendance tracking and workforce management.
+        </p>
+      </div>
+    </div>
+
+    <div class="login-right">
+
+      <div class="login-card">
+
+        <div class="logo">
+          HR
+        </div>
+
+        <h2>Welcome Back</h2>
+
+        <p class="subtitle">
+          Sign in to access your Smart HR Analytics Dashboard.
+        </p>
+
+        <form id="loginForm">
+
+          <div class="form-group">
+            <label for="username">Username</label>
+
+            <input
+              type="text"
+              id="username"
+              placeholder="Enter username"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              required
+            >
+          </div>
+
+          <button type="submit" class="login-btn">
+            Sign In
+          </button>
+
+          <div id="loginError" class="login-error">
+            Invalid username or password.
+          </div>
+
+        </form>
+
+        <div class="demo-info">
+          <strong>Demo Login</strong><br>
+          Username: Anbuselvam.p<br>
+          Password: Anbuselvam.p123
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= DASHBOARD PAGE ================= -->
+
+  <section id="dashboardPage">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+      <div class="brand">
+        Smart HR Analytics Dashboard
+      </div>
+
+      <div class="topbar-right">
+
+        <span class="user-name">
+          Anbuselvam.p
+        </span>
+
+        <button class="signout-btn" id="signoutBtn">
+          Sign Out
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD CONTENT -->
+
+    <main class="dashboard-container">
+
+      <div class="welcome">
+
+        <h1>HR Overview</h1>
+
+        <p>
+          Monitor workforce metrics and employee information
+          from one centralized dashboard.
+        </p>
+
+      </div>
+
+
+      <!-- KPI CARDS -->
+
+      <div class="kpi-grid">
+
+        <div class="kpi-card">
+
+          <div class="kpi-title">
+            Total Employees
+          </div>
+
+          <div class="kpi-value">
+            1,284
+          </div>
+
+          <div class="kpi-description">
+            Current workforce
+          </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+          <div class="kpi-title">
+            Avg Performance
+          </div>
+
+          <div class="kpi-value">
+            4.2/5
+          </div>
+
+          <div class="kpi-description">
+            Average employee rating
+          </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+          <div class="kpi-title">
+            Avg Salary
+          </div>
+
+          <div class="kpi-value">
+            ₹9.6L
+          </div>
+
+          <div class="kpi-description">
+            Average annual salary
+          </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+          <div class="kpi-title">
+            Attrition Rate
+          </div>
+
+          <div class="kpi-value">
+            7.8%
+          </div>
+
+          <div class="kpi-description">
+            Employee turnover
+          </div>
+
+        </div>
+
+
+        <div class="kpi-card">
+
+          <div class="kpi-title">
+            Attendance Rate
+          </div>
+
+          <div class="kpi-value">
+            94.3%
+          </div>
+
+          <div class="kpi-description">
+            Overall attendance
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- DEPARTMENTS TO WATCH -->
+
+      <div class="section-card">
+
+        <div class="section-header">
+
+          <h2>
+            Departments to Watch
+          </h2>
+
+          <p>
+            Current workforce areas requiring attention.
+          </p>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Department</th>
+                <th>Employees</th>
+                <th>Performance</th>
+                <th>Attendance</th>
+                <th>Status</th>
+              </tr>
+
+            </thead>
+
+
+            <tbody>
+
+              <tr>
+
+                <td>Support</td>
+
+                <td>196</td>
+
+                <td>3.9 / 5</td>
+
+                <td>91.8%</td>
+
+                <td>
+                  <span class="status alert">
+                    Attention
+                  </span>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>Sales</td>
+
+                <td>318</td>
+
+                <td>4.0 / 5</td>
+
+                <td>92.6%</td>
+
+                <td>
+                  <span class="status watch">
+                    Watch
+                  </span>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>Engineering</td>
+
+                <td>412</td>
+
+                <td>4.5 / 5</td>
+
+                <td>96.4%</td>
+
+                <td>
+                  <span class="status good">
+                    Good
+                  </span>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>Operations</td>
+
+                <td>264</td>
+
+                <td>4.1 / 5</td>
+
+                <td>94.1%</td>
+
+                <td>
+                  <span class="status good">
+                    Good
+                  </span>
+                </td>
+
+              </tr>
+
+
+              <tr>
+
+                <td>People</td>
+
+                <td>94</td>
+
+                <td>4.3 / 5</td>
+
+                <td>95.2%</td>
+
+                <td>
+                  <span class="status good">
+                    Good
+                  </span>
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- ================= JAVASCRIPT ================= -->
+
+  <script>
+
+    const loginPage = document.getElementById("loginPage");
+    const dashboardPage = document.getElementById("dashboardPage");
+
+    const loginForm = document.getElementById("loginForm");
+    const loginError = document.getElementById("loginError");
+
+    const signoutBtn = document.getElementById("signoutBtn");
+
+
+    // Login
+
+    loginForm.addEventListener("submit", function(event) {
+
+      event.preventDefault();
+
+      const username =
+        document.getElementById("username").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+
+      // Demo credentials
+
+      if (
+        username === "Anbuselvam.p" &&
+        password === "Anbuselvam.p123"
+      ) {
+
+        loginError.style.display = "none";
+
+        loginPage.style.display = "none";
+
+        dashboardPage.style.display = "block";
+
+        window.scrollTo(0, 0);
+
+      } else {
+
+        loginError.style.display = "block";
+
+      }
+
+    });
+
+
+    // Sign Out
+
+    signoutBtn.addEventListener("click", function() {
+
+      dashboardPage.style.display = "none";
+
+      loginPage.style.display = "flex";
+
+      loginForm.reset();
+
+      loginError.style.display = "none";
+
+      window.scrollTo(0, 0);
+
+    });
+
+  </script>
+
+</body>
+</html>
