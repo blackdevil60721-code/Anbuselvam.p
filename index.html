@@ -340,8 +340,16 @@ button,input{
   padding:35px
 }
 
-.welcome{
+ .welcome{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
   margin-bottom:30px
+}
+
+.welcome-copy{
+  flex:1
 }
 
 .welcome h1{
@@ -351,6 +359,13 @@ button,input{
 
 .welcome p{
   color:var(--muted)
+}
+
+.overview-image{
+  display:block;
+  width:min(300px, 35%);
+  height:auto;
+  flex:0 0 auto
 }
 
 
@@ -540,6 +555,16 @@ tr:last-child td{
 }
 
 @media(max-width:500px){
+
+  .welcome{
+    flex-direction:column;
+    align-items:flex-start
+  }
+
+  .overview-image{
+    width:min(260px, 100%);
+    align-self:center
+  }
 
   .kpi-grid{
     grid-template-columns:1fr
@@ -778,14 +803,32 @@ tr:last-child td{
 
     <div class="welcome">
 
-      <h1>
-        HR Overview
-      </h1>
+      <div class="welcome-copy">
+        <h1>
+          HR Overview
+        </h1>
 
-      <p>
-        Monitor workforce metrics and employee information
-        from one centralized dashboard.
-      </p>
+        <p>
+          Monitor workforce metrics and employee information
+          from one centralized dashboard.
+        </p>
+      </div>
+
+      <svg class="overview-image" viewBox="0 0 300 190" role="img" aria-label="Illustration of a team working together" xmlns="http://www.w3.org/2000/svg">
+        <rect x="8" y="8" width="284" height="174" rx="24" fill="#eaf4f1"/>
+        <circle cx="150" cy="91" r="60" fill="#d2e8de"/>
+        <rect x="71" y="139" width="158" height="13" rx="6.5" fill="#8db5a2"/>
+        <path d="M91 132c0-21 13-35 29-35s29 14 29 35v7H91z" fill="#1f6f5f"/>
+        <circle cx="120" cy="76" r="17" fill="#e7b28d"/>
+        <path d="M103 75c1-20 32-24 36-2-7-2-12-7-15-12-4 7-12 12-21 14z" fill="#344e47"/>
+        <path d="M151 132c0-21 13-35 29-35s29 14 29 35v7h-58z" fill="#739b68"/>
+        <circle cx="180" cy="76" r="17" fill="#c98f6f"/>
+        <path d="M163 75c1-20 32-24 36-2-7-2-12-7-15-12-4 7-12 12-21 14z" fill="#26312f"/>
+        <rect x="126" y="112" width="48" height="31" rx="4" fill="#fff"/>
+        <path d="M133 120h34M133 127h23M133 134h29" stroke="#8db5a2" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="47" cy="50" r="7" fill="#e4bd66"/>
+        <path d="m250 45 8 8-8 8-8-8z" fill="#1f6f5f"/>
+      </svg>
 
     </div>
 
